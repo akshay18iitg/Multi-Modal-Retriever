@@ -52,26 +52,26 @@ def text_features_using_clip(data: Textformat):
     names = [ index['name'] for index in indexes]
 
 
-    if 'upscaler1' not in names:
-        pc.create_index('upscaler1', dimension=512 , metric="cosine",
+    if 'upscaler2' not in names:
+        pc.create_index('upscaler2', dimension=512 , metric="cosine",
                     spec=ServerlessSpec(
                     cloud="aws",
                     region="us-east-1"
                     ))
-    index = pc.Index('upscaler1')
+    index = pc.Index('upscaler2')
 
     indexes = pc.list_indexes()
     print(indexes)
     names = [ index['name'] for index in indexes]
 
 
-    if 'upscaler1' not in names:
-        pc.create_index('upscaler1', dimension=512 , metric="cosine",
+    if 'upscaler2' not in names:
+        pc.create_index('upscaler2', dimension=512 , metric="cosine",
                     spec=ServerlessSpec(
                     cloud="aws",
                     region="us-east-1"
                     ))
-    index = pc.Index('upscaler1')
+    index = pc.Index('upscaler2')
 
     result = index.query(
     vector=text_features.tolist(),  # Convert the embedding to a list
@@ -105,13 +105,13 @@ def image_from_s3(request: ImagePathRequest):
     names = [ index['name'] for index in indexes]
 
 
-    if 'upscaler1' not in names:
-        pc.create_index('upscaler1', dimension=512 , metric="cosine",
+    if 'upscaler2' not in names:
+        pc.create_index('upscaler2', dimension=512 , metric="cosine",
                     spec=ServerlessSpec(
                     cloud="aws",
                     region="us-east-1"
                     ))
-    index = pc.Index('upscaler1')
+    index = pc.Index('upscaler2')
 
     index.upsert(
         vectors=zip([request.image_path], [image_features.squeeze(dim=0)])
